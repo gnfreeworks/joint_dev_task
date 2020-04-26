@@ -143,7 +143,12 @@ def q16
   ]
 
   # 以下に回答を記載
+  users.each{|user|
+    puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}です。"
+  }
 
+# 私の名前は〜です。年齢は〜歳です。
+  
 end
 
 class UserQ17
