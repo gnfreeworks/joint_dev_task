@@ -29,7 +29,7 @@ def q4
   sports = ["サッカー", "フットサル", nil, "野球", "バスケ", nil, "バレー"]
 
   # 以下に回答を記載
-  sports.delete(nil)
+  sports.compact!
 
   # 以下は変更しないで下さい
   p sports
@@ -40,8 +40,8 @@ def q5
   array2 = [1, 5, 8, 10]
 
   # 以下に回答を記載
-  puts array1.empty? ? "true" : "false"
-  puts array2.empty? ? "true" : "false"
+  puts array1.empty?
+  puts array2.empty?
 end
 
 def q6
