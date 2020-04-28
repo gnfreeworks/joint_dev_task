@@ -151,16 +151,18 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(name:,age:,gender:)
-    @name = name
-    @age = age
-    @gender = gender
+  def initialize(**user)
+    @name = user[:name]
+    @age = user[:age]
+    @gender = user[:gender]
   end
 
   def info
-    puts "名前：#{@name}"
-    puts "年齢：#{@age}"
-    puts "性別：#{@gender}"
+    puts <<~EOS
+      "名前：#{@name}"
+      "年齢：#{@age}"
+      "性別：#{@gender}"
+    EOS
   end
 end
 
@@ -176,15 +178,15 @@ end
 
 class UserQ18
   # 以下に回答を記載
-  def initialize(name:,age:)
-    @name = name
-    @age = age
+  def initialize(**user)
+    @name = user[:name]
+    @age = user[:age]
   end
 
   def introduce
-    if @age == 32
+    if @age >= 20
       print "こんにちは、#{@name}と申します。宜しくお願いいたします。"
-    elsif @age == 10
+    else
       print "はいさいまいど〜、#{@name}です！！！"
     end
   end
@@ -201,13 +203,9 @@ end
 
 class Item
   # 以下を修正して下さい
-
+  attr_reader :name
   def initialize(name:)
     @name = name
-  end
-
-  def name
-    @name
   end
 end
 
@@ -220,29 +218,30 @@ end
 class UserQ20
   # 以下に回答を記載
   attr_reader :name, :age
-  def initialize(name:,age:)
-    @name = name
-    @age = age
+  def initialize(**user)
+    @name = user[:name]
+    @age = user[:age]
   end
 end
 
 class Zoo
   # 以下に回答を記載
-  def initialize(name:,entry_fee:)
-    @zoo_name = name
-    @entry_fee = entry_fee
+  def initialize(**zoo)
+    @zoo_name = zoo[:name]
+    @entry_fee = zoo[:entry_fee]
   end
 
   def info_entry_fee(user)
-    if user.age.between?(0, 5)
-      price = @entry_fee[:infant]
-    elsif user.age.between?(6,12)
-      price = @entry_fee[:children]
-    elsif user.age.between?(13,64)
-      price = @entry_fee[:adult]
-    elsif user.age.between?(65,120)
-      price = @entry_fee[:senior]
-    end
+    price = case user.age
+            when 0..5
+              @entry_fee[:infant]
+            when 6..12
+              @entry_fee[:children]
+            when 13..64
+              @entry_fee[:adult]
+            when 65..120
+              @entry_fee[:senior]
+            end
     puts "#{user.name}さんの入場料金は #{price} 円です。"
   end
 end
